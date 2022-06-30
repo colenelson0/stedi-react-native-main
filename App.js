@@ -59,11 +59,10 @@ if(userLoggedIn){
     </NavigationContainer>
   );
 
-  } else{
-    return (
-      <View>
-        <Login/>
-      </View>
+  } else {
+
+    return(
+      <Login setUserLoggedIn={setUserLoggedIn}/>
     )
   }
 

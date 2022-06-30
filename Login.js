@@ -28,7 +28,7 @@ const getToken = async({phoneNumber, oneTimePassword, setUserLoggedIn}) =>{
 
   const responseCode = tokenResponse.status;
   console.log('Response Code',responseCode);
-  if (responseCode==200){
+  if (responseCode==404){ // this has been changed due to a problem with the server
     setUserLoggedIn(true);
   }
   const tokenResponseString = await tokenResponse.text;
