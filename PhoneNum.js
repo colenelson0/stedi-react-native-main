@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 function PhoneNum() {
         return (
             <View style={styles.phoneNum}>
-                <Text style={styles.text}>text</Text>
+                
             </View>
         );
     }
