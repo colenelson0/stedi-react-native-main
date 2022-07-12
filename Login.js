@@ -15,7 +15,7 @@ const sendText = async (phoneNumber) => {
   console.log('Login Response',loginResponseText);//print the response
 }
 
-const getToken = async({phoneNumber, oneTimePassword, setUserLoggedIn}) =>{
+const getToken = async({phoneNumber, oneTimePassword, setUserLoggedIn, setUserName}) =>{
   console.log('Phone Number',phoneNumber);
   console.log('OTP',oneTimePassword);
   const tokenResponse = await fetch('https://dev.stedi.me/twofactorlogin',{
@@ -31,24 +31,18 @@ const getToken = async({phoneNumber, oneTimePassword, setUserLoggedIn}) =>{
   if (responseCode==200){
     setUserLoggedIn(true);
   }
-  const tokenResponseString = await tokenResponse.text;
-  getEmail(tokenResponseString);
+  const tokenResponseString = await tokenResponse.text();
+  console.log('Token',tokenResponseString);
+  const emailResponse = await fetch('https://dev.stedi.me/validate/'+tokenResponseString)
+  const textEmail = await emailResponse.text()
+  setUserName(textEmail)
+  console.log("User Email", textEmail)
 }
-
-const getEmail = async (token) => {
-  const emailResponse = await fetch('https://dev.stedi.me/validate/'+token,{
-      method: 'GET',
-      headers: {
-        'content-type':'application/text'
-      }
-  })
-  const emailResponseText = await emailResponse.text();
-  console.log('Response Email', emailResponseText);
-};
 
 const Login = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oneTimePassword, setOneTimePassword] = useState(null);
+  const [count, setCount] = useState(0);
 
   return (
     <SafeAreaView style={styles.margin}>
@@ -75,7 +69,7 @@ const Login = (props) => {
       <TouchableOpacity
         style={styles.button}
         onPress={()=>{
-          getToken({phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn});
+          getToken({phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn, setUserName:props.setUserName});
         }}
       >
         <Text>Login</Text>

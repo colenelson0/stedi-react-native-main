@@ -28,7 +28,7 @@ if(userLoggedIn){
       >
         <Tab.Screen
           name='Home'
-          children={()=><Home loggedInUser={userName}/>}
+          children={()=><Home userName={userName}/>}
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: ({ color }) => (
@@ -63,7 +63,7 @@ if(userLoggedIn){
   } else {
 
     return(
-      <Login setUserLoggedIn={setUserLoggedIn}/>
+      <Login setUserLoggedIn={setUserLoggedIn} setUserName={setUserName}/>
     )
   }
 

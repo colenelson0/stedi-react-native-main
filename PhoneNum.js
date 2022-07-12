@@ -1,10 +1,11 @@
 import React from "react";
+import {useState} from "react";
 import { StyleSheet, Text, View } from 'react-native';
 
-function PhoneNum() {
+function PhoneNum(props) {
         return (
             <View style={styles.phoneNum}>
-                
+                <Text style={styles.text}>{props.userName}</Text>
             </View>
         );
     }
